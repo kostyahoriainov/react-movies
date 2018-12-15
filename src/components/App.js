@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _orderBy from 'lodash/orderBy';
 import data from '../data';
 import FilmList from './FilmList';
+import FilmForm from './FilmForm';
 
 class App extends Component {
 
@@ -11,7 +12,17 @@ class App extends Component {
 
     componentDidMount() {
         this.setState({
-            films: _orderBy(data.films, ['title'], ['asc'])
+            films: _orderBy(data.films, ['featured', 'title'], ['desc', 'asc'])
+        })
+    }
+
+    sortFilms = (films) => _orderBy(films, ['featured', 'title'], ['desc', 'asc'])
+
+    toggleFeature = (id) => {
+        this.setState({
+            films: this.sortFilms(this.state.films.map(
+                film => film.id === id ? { ...film, featured: !film.featured } : film
+            ))
         })
     }
 
@@ -23,7 +34,8 @@ class App extends Component {
         } 
         return (
             <div className="ui container">
-                <FilmList films={films}/>
+                <FilmForm/>
+                <FilmList toggleFeatured={this.toggleFeature} films={films}/>
             </div>
         );
     }

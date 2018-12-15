@@ -2,13 +2,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Price from './Price';
+import Featured from './Featured';
 
 
-const FilmCart = ({film}) => (
+const FilmCart = ({ film, toggleFeatured}) => (
 
     <div className="ui card">
         <div className="image">
             <Price price={film.price}/>
+            <Featured toggleFeatured={() => {toggleFeatured(film.id)}} featured={film.featured}/>
             <img src={film.im} alt={film.title}/>
         </div>
         <div className="content">
@@ -29,8 +31,9 @@ FilmCart.propTypes = {
         duration: PropTypes.number.isRequired,
         price: PropTypes.number.isRequired,
         im: PropTypes.string.isRequired,
-        featured: PropTypes.any.isRequired
-    }).isRequired
+        featured: PropTypes.bool.isRequired
+    }).isRequired,
+    toggleFeatured: PropTypes.func.isRequired
 }
 
 export default FilmCart
