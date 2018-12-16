@@ -4,7 +4,7 @@ import FilmCard from './FilmCard';
 import Message from './Message';
 
 
-const FilmList = ({ films, toggleFeatured }) => (
+const FilmList = ({ films, toggleFeatured, editFilm, removeFilm }) => (
 
     <div className="ui cards four">
         {
@@ -12,7 +12,12 @@ const FilmList = ({ films, toggleFeatured }) => (
                 (
                     <Message header="Not found" message="Not found any films ins store" />
                 ) : (
-                    films.map(film => <FilmCard key={film.id} film={film} toggleFeatured={toggleFeatured} />)
+                    films.map(film => <FilmCard key={film.id} 
+                                                film={film} 
+                                                toggleFeatured={toggleFeatured} 
+                                                editFilm={editFilm} 
+                                                removeFilm={removeFilm} 
+                                                />)
                 )
         
         }
@@ -21,7 +26,9 @@ const FilmList = ({ films, toggleFeatured }) => (
 
 FilmList.propTypes = {
     films: PropTypes.instanceOf(Array).isRequired,
-    toggleFeatured: PropTypes.func.isRequired
+    toggleFeatured: PropTypes.func.isRequired,
+    editFilm: PropTypes.func.isRequired,
+    removeFilm: PropTypes.func.isRequired
 }
 
 FilmList.defaultProps = {

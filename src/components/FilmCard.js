@@ -1,11 +1,12 @@
-/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable jsx-a11y/href-no-hash */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Price from './Price';
 import Featured from './Featured';
+import RemoveFilmModal from './RemoveFilmModal';
 
 
-const FilmCart = ({ film, toggleFeatured}) => (
+const FilmCart = ({ film, toggleFeatured, editFilm, removeFilm}) => (
 
     <div className="ui card">
         <div className="image">
@@ -20,6 +21,16 @@ const FilmCart = ({ film, toggleFeatured}) => (
                 <i className="icon users"/>{film.director}
                 <i className="icon wait"/> {film.duration} min
             </div>
+
+            <div className="extra">
+                <a className="ui basic green button" href="#" onClick={() => editFilm(film)}>
+                    <i className="ui icon edit"/>
+                </a>
+
+                <>
+                    <RemoveFilmModal film={film} removeFilm={() => removeFilm(film.id)}/>
+                </>
+            </div>
         </div>
     </div>
 )
@@ -33,7 +44,9 @@ FilmCart.propTypes = {
         im: PropTypes.string.isRequired,
         featured: PropTypes.bool.isRequired
     }).isRequired,
-    toggleFeatured: PropTypes.func.isRequired
+    toggleFeatured: PropTypes.func.isRequired,
+    editFilm: PropTypes.func.isRequired,
+    removeFilm: PropTypes.func.isRequired
 }
 
 export default FilmCart
